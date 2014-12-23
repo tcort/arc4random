@@ -10,7 +10,7 @@ Native bindings for the `arc4random()` family of funcitons:
 Requirements
 ------------
 
-* [nodejs](http://nodejs.org/) v0.10 or later.
+* [nodejs](http://nodejs.org/) v0.10.x.
 * Operating system with a native `arc4random()` function or [libbsd](http://libbsd.freedesktop.org/):
   * [Mac OS X (darwin)](https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man3/arc4random.3.html)
   * [FreeBSD](https://www.freebsd.org/cgi/man.cgi?query=arc4random&sektion=3)

@@ -32,7 +32,7 @@
     "linux"
   ],
   "engines": {
-    "node": ">=0.10.x"
+    "node": "0.10.x"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
