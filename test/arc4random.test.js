@@ -147,7 +147,7 @@ describe('arc4random_uniform()', function () {
 		var stddev = Math.sqrt(variance);
 
 		for (var mm = 0; mm < counts.length; mm++) {
-			expect(Math.abs(counts[mm] - avg)).to.be.lessThan(2*stddev);
+			expect(Math.abs(counts[mm] - avg)).to.be.lessThan(4*stddev);
 		}
 	});
 });

@@ -11,11 +11,12 @@ Requirements
 ------------
 
 * [nodejs](http://nodejs.org/) v0.10 or later.
-* Operating system with a native `arc4random()` function:
+* Operating system with a native `arc4random()` function or [libbsd](http://libbsd.freedesktop.org/):
   * [Mac OS X (darwin)](https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man3/arc4random.3.html)
   * [FreeBSD](https://www.freebsd.org/cgi/man.cgi?query=arc4random&sektion=3)
   * [OpenBSD](http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man3/arc4random.3?query=arc4random&sec=3)
   * [NetBSD](http://netbsd.gw.com/cgi-bin/man-cgi?arc4random++NetBSD-current)
+  * [Linux via libbsd](http://libbsd.freedesktop.org)
 
 Install
 -------

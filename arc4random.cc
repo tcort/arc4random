@@ -14,12 +14,19 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+#define __STDC_LIMIT_MACROS
+
 #include <node.h>
 #include <node_buffer.h>
 #include <v8.h>
 
 #include <math.h>
 #include <stdlib.h>
+#include <stdint.h>
+
+#ifdef USE_LIBBSD
+#include <bsd/stdlib.h>
+#endif
 
 using namespace v8;
 using namespace node;

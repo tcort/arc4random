@@ -28,7 +28,8 @@
     "darwin",
     "freebsd",
     "openbsd",
-    "netbsd"
+    "netbsd",
+    "linux"
   ],
   "engines": {
     "node": ">=0.10.x"
