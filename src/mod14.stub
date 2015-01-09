@@ -1,0 +1,83 @@
+/*
+ * Copyright (c) 2014, 2015 Thomas Cort <linuxgeek@gmail.com>
+ *
+ * Permission to use, copy, modify, and distribute this software for any
+ * purpose with or without fee is hereby granted, provided that the above
+ * copyright notice and this permission notice appear in all copies.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+ * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ */
+
+#if NODE_MODULE_VERSION != 14
+#error "This stub only works with NODE_MODULE_VERSION == 14"
+#endif
+
+void node_arc4random(const FunctionCallbackInfo<Value>& args) {
+	Isolate* isolate = Isolate::GetCurrent();
+	HandleScope scope(isolate);
+
+	if (args.Length() != 0) {
+		isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Wrong number of arguments")));
+		return;
+	}
+
+	args.GetReturnValue().Set(Uint32::NewFromUnsigned(isolate, arc4random()));
+	return;
+}
+
+void node_arc4random_buf(const FunctionCallbackInfo<Value>& args) {
+	Isolate* isolate = Isolate::GetCurrent();
+	HandleScope scope(isolate);
+
+	if (args.Length() != 2) {
+		isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Wrong number of arguments")));
+		return;
+	}
+
+	if (!Buffer::HasInstance(args[0]) || !args[1]->IsNumber() || isnan(args[1]->NumberValue()) || args[1]->IntegerValue() < 0 || args[1]->IntegerValue() > UINT32_MAX) {
+		isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Wrong arguments")));
+		return;
+	}
+
+	Local<Object> bufferObj    = args[0]->ToObject();
+	char*  bufferData   = Buffer::Data(bufferObj);
+	size_t bufferLength = Buffer::Length(bufferObj);
+	size_t nbytes = args[1]->IntegerValue();
+
+	if (bufferLength < nbytes) {
+		nbytes = bufferLength; // don't overrun the buffer.
+	}
+
+	arc4random_buf(bufferData, nbytes);
+	return;
+}
+
+void node_arc4random_uniform(const FunctionCallbackInfo<Value>& args) {
+	Isolate* isolate = Isolate::GetCurrent();
+	HandleScope scope(isolate);
+
+	if (args.Length() != 1) {
+		isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Wrong number of arguments")));
+		return;
+	}
+
+	if (!args[0]->IsNumber() || isnan(args[0]->NumberValue()) || args[0]->IntegerValue() < 0 || args[0]->IntegerValue() > UINT32_MAX) {
+		isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Wrong arguments")));
+		return;
+	}
+
+	args.GetReturnValue().Set(Uint32::NewFromUnsigned(isolate, arc4random_uniform(args[0]->Uint32Value())));
+	return;
+}
+
+void init(Handle<Object> exports) {
+	NODE_SET_METHOD(Isolate::GetCurrent()->GetCurrentContext()->Global(), "arc4random", node_arc4random);
+	NODE_SET_METHOD(Isolate::GetCurrent()->GetCurrentContext()->Global(), "arc4random_buf", node_arc4random_buf);
+	NODE_SET_METHOD(Isolate::GetCurrent()->GetCurrentContext()->Global(), "arc4random_uniform", node_arc4random_uniform);
+}

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Thomas Cort <linuxgeek@gmail.com>
+ * Copyright (c) 2014, 2015 Thomas Cort <linuxgeek@gmail.com>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -31,64 +31,12 @@
 using namespace v8;
 using namespace node;
 
-Handle<Value> node_arc4random(const Arguments& args) {
-	HandleScope scope;
-
-	if (args.Length() != 0) {
-		ThrowException(Exception::TypeError(String::New("Wrong number of arguments")));
-		return scope.Close(Undefined());
-	}
-
-	return scope.Close(Uint32::NewFromUnsigned(arc4random()));
-}
-
-Handle<Value> node_arc4random_buf(const Arguments& args) {
-	HandleScope scope;
-
-	if (args.Length() != 2) {
-		ThrowException(Exception::TypeError(String::New("Wrong number of arguments")));
-		return scope.Close(Undefined());
-	}
-
-	if (!Buffer::HasInstance(args[0]) || !args[1]->IsNumber() || isnan(args[1]->NumberValue()) || args[1]->IntegerValue() < 0 || args[1]->IntegerValue() > UINT32_MAX) {
-		ThrowException(Exception::TypeError(String::New("Wrong arguments")));
-		return scope.Close(Undefined());
-	}
-
-	Local<Object> bufferObj    = args[0]->ToObject();
-	char*  bufferData   = Buffer::Data(bufferObj);
-	size_t bufferLength = Buffer::Length(bufferObj);
-	size_t nbytes = args[1]->IntegerValue();
-
-	if (bufferLength < nbytes) {
-		nbytes = bufferLength; // don't overrun the buffer.
-	}
-
-	arc4random_buf(bufferData, nbytes);
-
-	return scope.Close(Undefined());
-}
-
-Handle<Value> node_arc4random_uniform(const Arguments& args) {
-	HandleScope scope;
-
-	if (args.Length() != 1) {
-		ThrowException(Exception::TypeError(String::New("Wrong number of arguments")));
-		return scope.Close(Undefined());
-	}
-
-	if (!args[0]->IsNumber() || isnan(args[0]->NumberValue()) || args[0]->IntegerValue() < 0 || args[0]->IntegerValue() > UINT32_MAX) {
-		ThrowException(Exception::TypeError(String::New("Wrong arguments")));
-		return scope.Close(Undefined());
-	}
-
-	return scope.Close(Number::New(arc4random_uniform(args[0]->Uint32Value())));
-}
-
-void init(Handle<Object> exports) {
-	Context::GetCurrent()->Global()->Set(String::NewSymbol("arc4random"), FunctionTemplate::New(node_arc4random)->GetFunction());
-	Context::GetCurrent()->Global()->Set(String::NewSymbol("arc4random_buf"), FunctionTemplate::New(node_arc4random_buf)->GetFunction());
-	Context::GetCurrent()->Global()->Set(String::NewSymbol("arc4random_uniform"), FunctionTemplate::New(node_arc4random_uniform)->GetFunction());
-}
+#if NODE_MODULE_VERSION == 14		/* v0.11 */
+#include "src/mod14.stub"
+#elif NODE_MODULE_VERSION == 11		/* v0.10 */
+#include "src/mod11.stub"
+#else
+#error "Unexpected NODE_MODULE_VERSION Please open an issue at https://github.com/tcort/node-arc4random/issues"
+#endif
 
 NODE_MODULE(arc4random, init)

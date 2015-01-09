@@ -10,7 +10,9 @@ Native bindings for the `arc4random()` family of funcitons:
 Requirements
 ------------
 
-* [nodejs](http://nodejs.org/) v0.10.x.
+* [nodejs](http://nodejs.org/) any of these versions:
+  * v0.10.16 or later
+  * v0.11.13 or later
 * Operating system with a native `arc4random()` function or [libbsd](http://libbsd.freedesktop.org/):
   * [Mac OS X (darwin)](https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man3/arc4random.3.html)
   * [FreeBSD](https://www.freebsd.org/cgi/man.cgi?query=arc4random&sektion=3)
@@ -18,8 +20,8 @@ Requirements
   * [NetBSD](http://netbsd.gw.com/cgi-bin/man-cgi?arc4random++NetBSD-current)
   * [Linux via libbsd](http://libbsd.freedesktop.org)
 
-Install
--------
+Installation
+------------
 
 The latest and greatest version of this software is available through [npm](http://npmjs.org/).
 
@@ -42,11 +44,21 @@ Example
     // returns an integer in the range [0, upper_bound)
     var anotherRandomNumber = arc4random_uniform(16);
 
-Contributing
-------------
+License
+-------
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+ISC License:
+
+    Copyright (c) 2014, 2015 Thomas Cort <linuxgeek@gmail.com>
+    
+    Permission to use, copy, modify, and distribute this software for any
+    purpose with or without fee is hereby granted, provided that the above
+    copyright notice and this permission notice appear in all copies.
+    
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+    WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+    MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+    ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+    WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+    ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.

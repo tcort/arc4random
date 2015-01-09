@@ -4,7 +4,6 @@
   "description": "Native bindings for the arc4random() family of funcitons.",
   "main": "index.js",
   "scripts": {
-    "pretest": "jshint *.js test/*.js",
     "test": "mocha"
   },
   "repository": {
@@ -32,42 +31,10 @@
     "linux"
   ],
   "engines": {
-    "node": "0.10.x"
+    "node": "^0.10.16 || ^0.11.13"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
-    "jshint": "^2.5.11",
     "mocha": "^2.0.1"
-  },
-  "jshintConfig": {
-    "curly": true,
-    "eqeqeq": true,
-    "forin": true,
-    "freeze": true,
-    "globalstrict": true,
-    "immed": true,
-    "indent": 4,
-    "loopfunc": true,
-    "moz": true,
-    "newcap": true,
-    "noarg": true,
-    "node": true,
-    "noempty": true,
-    "nonew": true,
-    "trailing": true,
-    "smarttabs": true,
-    "strict": true,
-    "validthis": true,
-    "globals": {
-      "describe": false,
-      "it": false,
-      "before": false,
-      "beforeEach": false,
-      "after": false,
-      "afterEach": false,
-      "arc4random": false,
-      "arc4random_buf": false,
-      "arc4random_uniform": false
-    }
   }
 }
