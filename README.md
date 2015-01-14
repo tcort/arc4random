@@ -3,7 +3,7 @@ arc4random
 
 [![NPM](https://nodei.co/npm/arc4random.png)](https://nodei.co/npm/arc4random/)
 
-[![Build Status](https://api.travis-ci.org/tcort/arc4random.png?branch=master)](http://travis-ci.org/tcort/arc4random)
+[![Build Status](https://api.travis-ci.org/tcort/node-arc4random.png?branch=master)](http://travis-ci.org/tcort/node-arc4random)
 
 Native bindings for the `arc4random()` family of funcitons:
 
