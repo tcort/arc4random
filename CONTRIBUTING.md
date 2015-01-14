@@ -15,7 +15,12 @@ This module has a few implementations in the `src/` directory for
 different node module API versions. If you change one implementation,
 the change may need to be applied to the other implementations.
 
-Try not to decrease the list of supported platforms / node versions.
+For compatibility with node v0.8, dependencies in `package.json`
+should use the `~` operator instead of the `^` operator.
+
+Once compatibility with a particular version of node has been achieved,
+it should be maintained. Changes should be tested on the versions
+of node.js which are supported. See 'Testing' below.
 
 Testing
 -------
@@ -27,6 +32,7 @@ work.
 
 | Series  | Minimum Version | Maximum Version |
 | ------- | --------------- | --------------- |
+|  v0.8.x |          v0.8.6 |    latest  v0.8 |
 | v0.10.x |        v0.10.16 |    latest v0.10 |
 | v0.11.x |        v0.11.13 |    latest v0.11 |
 

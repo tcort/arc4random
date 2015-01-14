@@ -14,8 +14,8 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#if NODE_MODULE_VERSION != 11
-#error "This stub only works with NODE_MODULE_VERSION == 11"
+#if NODE_MODULE_VERSION > 11
+#error "This stub only works with NODE_MODULE_VERSION <= 11"
 #endif
 
 Handle<Value> node_arc4random(const Arguments& args) {
