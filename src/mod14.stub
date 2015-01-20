@@ -14,8 +14,8 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#if NODE_MODULE_VERSION != 14
-#error "This stub only works with NODE_MODULE_VERSION == 14"
+#if NODE_MODULE_VERSION != 14 && NODE_MODULE_VERSION != 42
+#error "This stub only works with NODE_MODULE_VERSION == 14 and NODE_MODULE_VERSION == 42"
 #endif
 
 void node_arc4random(const FunctionCallbackInfo<Value>& args) {

@@ -31,9 +31,9 @@
 using namespace v8;
 using namespace node;
 
-#if NODE_MODULE_VERSION == 14		/* v0.11 */
+#if NODE_MODULE_VERSION == 14 || NODE_MODULE_VERSION == 42	/* node-v0.11 / iojs-1.0  */
 #include "src/mod14.stub"
-#elif NODE_MODULE_VERSION <= 11		/* v0.8/v0.10 */
+#elif NODE_MODULE_VERSION <= 11					/* node-v0.8 / node-v0.10 */
 #include "src/mod11.stub"
 #else
 #error "Unexpected NODE_MODULE_VERSION Please open an issue at https://github.com/tcort/node-arc4random/issues"
