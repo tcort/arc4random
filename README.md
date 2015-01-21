@@ -1,10 +1,6 @@
 arc4random
 ==========
 
-[![NPM](https://nodei.co/npm/arc4random.png)](https://nodei.co/npm/arc4random/)
-
-[![Build Status](https://api.travis-ci.org/tcort/node-arc4random.png?branch=master)](http://travis-ci.org/tcort/node-arc4random)
-
 Native bindings for the `arc4random()` family of funcitons:
 
 * `arc4random()`
@@ -14,7 +10,7 @@ Native bindings for the `arc4random()` family of funcitons:
 Requirements
 ------------
 
-* Any of these JavaScript engine versions versions:
+* Any of these JavaScript engine versions:
   * [iojs](https://iojs.org/) v1.0.1 or later
   * [nodejs](http://nodejs.org/) v0.8.6 or later
   * [nodejs](http://nodejs.org/) v0.10.16 or later
