@@ -73,7 +73,7 @@ Handle<Value> node_arc4random_uniform(const Arguments& args) {
 }
 
 void init(Handle<Object> exports) {
-	Context::GetCurrent()->Global()->Set(String::NewSymbol("arc4random"), FunctionTemplate::New(node_arc4random)->GetFunction());
-	Context::GetCurrent()->Global()->Set(String::NewSymbol("arc4random_buf"), FunctionTemplate::New(node_arc4random_buf)->GetFunction());
-	Context::GetCurrent()->Global()->Set(String::NewSymbol("arc4random_uniform"), FunctionTemplate::New(node_arc4random_uniform)->GetFunction());
+	exports->Set(String::NewSymbol("arc4random"),         FunctionTemplate::New(node_arc4random)->GetFunction());
+	exports->Set(String::NewSymbol("arc4random_buf"),     FunctionTemplate::New(node_arc4random_buf)->GetFunction());
+	exports->Set(String::NewSymbol("arc4random_uniform"), FunctionTemplate::New(node_arc4random_uniform)->GetFunction());
 }

@@ -77,7 +77,8 @@ void node_arc4random_uniform(const FunctionCallbackInfo<Value>& args) {
 }
 
 void init(Handle<Object> exports) {
-	NODE_SET_METHOD(Isolate::GetCurrent()->GetCurrentContext()->Global(), "arc4random", node_arc4random);
-	NODE_SET_METHOD(Isolate::GetCurrent()->GetCurrentContext()->Global(), "arc4random_buf", node_arc4random_buf);
-	NODE_SET_METHOD(Isolate::GetCurrent()->GetCurrentContext()->Global(), "arc4random_uniform", node_arc4random_uniform);
+	Isolate* isolate = Isolate::GetCurrent();
+	exports->Set(String::NewFromUtf8(isolate, "arc4random"),         FunctionTemplate::New(isolate, node_arc4random)->GetFunction());
+	exports->Set(String::NewFromUtf8(isolate, "arc4random_buf"),     FunctionTemplate::New(isolate, node_arc4random_buf)->GetFunction());
+	exports->Set(String::NewFromUtf8(isolate, "arc4random_uniform"), FunctionTemplate::New(isolate, node_arc4random_uniform)->GetFunction());
 }
