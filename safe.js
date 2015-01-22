@@ -16,4 +16,4 @@
 
 "use strict";
 
-module.exports = require('./build/Release/arc4random');
+module.exports = require('bindings')('arc4random');
