@@ -38,6 +38,13 @@ should work.
 | nodejs | v0.10.x |         v0.10.0 |    latest v0.10 |
 | nodejs | v0.11.x |        v0.11.13 |    latest v0.11 |
 
-These versions are also listed in `README.md` and `package.json`. If
-they change, update them there too. For the most part, your changes
-should not impact versions that are already supported.
+These versions are also listed in `README.md`, `package.json`,
+and `test/nvm-test.bash`. If they change, update them there too.
+For the most part, your changes should not impact versions that
+are already supported.
+
+The `test` directory provides a [bash](http://www.gnu.org/software/bash/)
+script named `nvm-test.bash` which will run the test suite on all
+supported versions. Note: this takes a long time and is only really
+meant for the maintainer to do a last minute compatibility check before
+a release.

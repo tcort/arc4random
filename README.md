@@ -12,7 +12,7 @@ Requirements
 
 * Any of these JavaScript engine versions:
   * [iojs](https://iojs.org/) v1.0.1 or later
-  * [nodejs](http://nodejs.org/) v0.8.6 or later
+  * [nodejs](http://nodejs.org/) v0.8.6 or later (except v0.8.13)
   * [nodejs](http://nodejs.org/) v0.9.1 or later
   * [nodejs](http://nodejs.org/) v0.10.0 or later
   * [nodejs](http://nodejs.org/) v0.11.13 or later
