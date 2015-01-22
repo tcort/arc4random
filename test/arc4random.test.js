@@ -50,20 +50,27 @@ describe('arc4random()', function () {
 describe('arc4random_buf()', function () {
 	this.timeout(10000);
 	it('should fill a buffer with random bytes', function () {
+		var ii;
 		var result = 0;
 		var nbytes = 16;
 		var buf = new Buffer(nbytes);
 
-		for (var ii = 0; ii < nbytes; ii++) {
+		for (ii = 0; ii < nbytes; ii++) {
 			buf[ii] = 0;
 		}
 
+		result = 0;
+		for (ii = 0; ii < nbytes; ii++) {
+			result |= buf[ii];
+		}
+		expect(result).to.be(0);
+
 		arc4random_buf(buf, nbytes);
 
-		for (var jj = 0; jj < nbytes; jj++) {
-			result |= buf[jj];
+		result = 0;
+		for (ii = 0; ii < nbytes; ii++) {
+			result |= buf[ii];
 		}
-
 		expect(result).not.to.be(0);
 	});
 	it('should now allow itself to be called incorrectly', function () {
