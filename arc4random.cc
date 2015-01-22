@@ -17,8 +17,7 @@
 #define __STDC_LIMIT_MACROS
 
 #include <node.h>
-#include <node_buffer.h>
-#include <v8.h>
+#include <nan.h>
 
 #include <math.h>
 #include <stdlib.h>
@@ -31,12 +30,64 @@
 using namespace v8;
 using namespace node;
 
-#if NODE_MODULE_VERSION == 14 || NODE_MODULE_VERSION == 42	/* node-v0.11 / iojs-1.0  */
-#include "src/mod14.stub"
-#elif NODE_MODULE_VERSION <= 11					/* node-v0.8 / node-v0.10 */
-#include "src/mod11.stub"
-#else
-#error "Unexpected NODE_MODULE_VERSION Please open an issue at https://github.com/tcort/node-arc4random/issues"
-#endif
+NAN_METHOD(node_arc4random) {
+	NanScope();
+
+        if (args.Length() != 0) {
+		NanThrowTypeError("Wrong number of arguments");
+		NanReturnUndefined();
+        }
+
+	NanReturnValue(NanNew<Number>(arc4random()));
+}
+
+NAN_METHOD(node_arc4random_buf) {
+	NanScope();
+
+	if (args.Length() != 2) {
+		NanThrowTypeError("Wrong number of arguments");
+		NanReturnUndefined();
+	}
+
+	if (!Buffer::HasInstance(args[0]) || !args[1]->IsNumber() || isnan(args[1]->NumberValue()) || args[1]->IntegerValue() < 0 || args[1]->IntegerValue() > UINT32_MAX) {
+		NanThrowTypeError("Wrong arguments");
+		NanReturnUndefined();
+	}
+
+	Local<Object> bufferObj = args[0]->ToObject();
+	char*  bufferData = Buffer::Data(bufferObj);
+	size_t bufferLength = Buffer::Length(bufferObj);
+	size_t nbytes = args[1]->IntegerValue();
+
+        if (bufferLength < nbytes) {
+		NanThrowRangeError("Trying to write outside buffer length");
+		NanReturnUndefined();
+        }
+
+        arc4random_buf(bufferData, nbytes);
+	NanReturnUndefined();
+}
+
+NAN_METHOD(node_arc4random_uniform) {
+	NanScope();
+
+        if (args.Length() != 1) {
+		NanThrowTypeError("Wrong number of arguments");
+		NanReturnUndefined();
+        }
+
+        if (!args[0]->IsNumber() || isnan(args[0]->NumberValue()) || args[0]->IntegerValue() < 0 || args[0]->IntegerValue() > UINT32_MAX) {
+		NanThrowTypeError("Wrong arguments");
+		NanReturnUndefined();
+        }
+
+	NanReturnValue(NanNew<Number>(arc4random_uniform(args[0]->Uint32Value())));
+}
+
+void init(Handle<Object> exports) {
+	exports->Set(NanNew("arc4random"),         NanNew<FunctionTemplate>(node_arc4random        )->GetFunction());
+	exports->Set(NanNew("arc4random_buf"),     NanNew<FunctionTemplate>(node_arc4random_buf    )->GetFunction());
+	exports->Set(NanNew("arc4random_uniform"), NanNew<FunctionTemplate>(node_arc4random_uniform)->GetFunction());
+}
 
 NODE_MODULE(arc4random, init)

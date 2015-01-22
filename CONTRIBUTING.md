@@ -34,7 +34,8 @@ should work.
 |--------| ------- | --------------- | --------------- |
 | iojs   |  v1.0.x |          v1.0.1 |    latest  v1.0 |
 | nodejs |  v0.8.x |          v0.8.6 |    latest  v0.8 |
-| nodejs | v0.10.x |        v0.10.16 |    latest v0.10 |
+| nodejs |  v0.9.x |          v0.9.1 |    latest  v0.9 |
+| nodejs | v0.10.x |         v0.10.0 |    latest v0.10 |
 | nodejs | v0.11.x |        v0.11.13 |    latest v0.11 |
 
 These versions are also listed in `README.md` and `package.json`. If

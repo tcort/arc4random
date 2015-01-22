@@ -81,11 +81,11 @@ describe('arc4random_buf()', function () {
 		expect(function () { arc4random_buf(new Buffer(4), 4, 4); }).to.throwError();
 	});
 	it('should not write past the buffer', function () {
-		arc4random_buf(new Buffer(1), 987654321);
+		expect(function () { arc4random_buf(new Buffer(1), 987654321); }).to.throwError();
 	});
 	it('should not crash with a 0 length buffer', function () {
 		arc4random_buf(new Buffer(0), 0);
-		arc4random_buf(new Buffer(0), 16);
+		expect(function () { arc4random_buf(new Buffer(0), 16); }).to.throwError();
 	});
 	it('should not crash with a 0 length request', function () {
 		arc4random_buf(new Buffer(16), 0);
