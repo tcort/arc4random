@@ -17,7 +17,3 @@
 "use strict";
 
 module.exports = require('bindings')('arc4random');
-
-global.arc4random         = module.exports.arc4random;
-global.arc4random_buf     = module.exports.arc4random_buf;
-global.arc4random_uniform = module.exports.arc4random_uniform;

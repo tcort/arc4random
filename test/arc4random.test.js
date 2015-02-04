@@ -16,7 +16,7 @@
 
 "use strict";
 
-require('../index');
+var rng = require('../index');
 var expect = require('expect.js');
 
 var n = 4096;
@@ -25,25 +25,25 @@ describe('arc4random()', function () {
 	this.timeout(10000);
 	it('should return numbers within the range 0 to (2**32)-1', function () {
 		for (var ii = 0; ii < n; ii++) {
-			expect(arc4random()).to.be.within(0, 4294967295);
+			expect(rng.arc4random()).to.be.within(0, 4294967295);
 		}
 	});
 	it('should not allow itself to be called incorrectly', function () {
-		expect(function () { arc4random(null); }).to.throwError();
-		expect(function () { arc4random(undefined); }).to.throwError();
-		expect(function () { arc4random(''); }).to.throwError();
-		expect(function () { arc4random(1); }).to.throwError();
-		expect(function () { arc4random(NaN); }).to.throwError();
-		expect(function () { arc4random(new Date()); }).to.throwError();
-		expect(function () { arc4random(new RegExp('/foobar/')); }).to.throwError();
-		expect(function () { arc4random({ foo: 'bar' }); }).to.throwError();
-		expect(function () { arc4random([]); }).to.throwError();
-		expect(function () { arc4random(function sum(a, b) { return a + b; }); }).to.throwError();
+		expect(function () { rng.arc4random(null); }).to.throwError();
+		expect(function () { rng.arc4random(undefined); }).to.throwError();
+		expect(function () { rng.arc4random(''); }).to.throwError();
+		expect(function () { rng.arc4random(1); }).to.throwError();
+		expect(function () { rng.arc4random(NaN); }).to.throwError();
+		expect(function () { rng.arc4random(new Date()); }).to.throwError();
+		expect(function () { rng.arc4random(new RegExp('/foobar/')); }).to.throwError();
+		expect(function () { rng.arc4random({ foo: 'bar' }); }).to.throwError();
+		expect(function () { rng.arc4random([]); }).to.throwError();
+		expect(function () { rng.arc4random(function sum(a, b) { return a + b; }); }).to.throwError();
 
-		expect(function () { arc4random(1,2); }).to.throwError();
-		expect(function () { arc4random(1,2,3); }).to.throwError();
-		expect(function () { arc4random(1,2,3,4); }).to.throwError();
-		expect(function () { arc4random(1,2,3,4,5); }).to.throwError();
+		expect(function () { rng.arc4random(1,2); }).to.throwError();
+		expect(function () { rng.arc4random(1,2,3); }).to.throwError();
+		expect(function () { rng.arc4random(1,2,3,4); }).to.throwError();
+		expect(function () { rng.arc4random(1,2,3,4,5); }).to.throwError();
 	});
 });
 
@@ -65,7 +65,7 @@ describe('arc4random_buf()', function () {
 		}
 		expect(result).to.be(0);
 
-		arc4random_buf(buf, nbytes);
+		rng.arc4random_buf(buf, nbytes);
 
 		result = 0;
 		for (ii = 0; ii < nbytes; ii++) {
@@ -79,23 +79,23 @@ describe('arc4random_buf()', function () {
 
 		for (var ii = 0; ii < values.length; ii++) {
 			for (var jj = 0; jj < values.length; jj++) {
-				expect(function () { arc4random_buf(values[ii], values[jj]); }).to.throwError();
+				expect(function () { rng.arc4random_buf(values[ii], values[jj]); }).to.throwError();
 			}
 		}
 
-		expect(function () { arc4random_buf(4, new Buffer(4)); }).to.throwError();
-		expect(function () { arc4random_buf(new Buffer(4)); }).to.throwError();
-		expect(function () { arc4random_buf(new Buffer(4), 4, 4); }).to.throwError();
+		expect(function () { rng.arc4random_buf(4, new Buffer(4)); }).to.throwError();
+		expect(function () { rng.arc4random_buf(new Buffer(4)); }).to.throwError();
+		expect(function () { rng.arc4random_buf(new Buffer(4), 4, 4); }).to.throwError();
 	});
 	it('should not write past the buffer', function () {
-		expect(function () { arc4random_buf(new Buffer(1), 987654321); }).to.throwError();
+		expect(function () { rng.arc4random_buf(new Buffer(1), 987654321); }).to.throwError();
 	});
 	it('should not crash with a 0 length buffer', function () {
-		arc4random_buf(new Buffer(0), 0);
-		expect(function () { arc4random_buf(new Buffer(0), 16); }).to.throwError();
+		rng.arc4random_buf(new Buffer(0), 0);
+		expect(function () { rng.arc4random_buf(new Buffer(0), 16); }).to.throwError();
 	});
 	it('should not crash with a 0 length request', function () {
-		arc4random_buf(new Buffer(16), 0);
+		rng.arc4random_buf(new Buffer(16), 0);
 	});
 });
 
@@ -103,34 +103,34 @@ describe('arc4random_uniform()', function () {
 	this.timeout(10000);
 	it('should return numbers within the range 0 to n', function () {
 		for (var ii = 0; ii < n; ii++) {
-			expect(arc4random_uniform(n)).to.be.within(0, n);
+			expect(rng.arc4random_uniform(n)).to.be.within(0, n);
 		}
 	});
 	it('should now allow itself to be called incorrectly', function () {
-		expect(function () { arc4random_uniform(null); }).to.throwError();
-		expect(function () { arc4random_uniform(undefined); }).to.throwError();
-		expect(function () { arc4random_uniform(''); }).to.throwError();
-		expect(function () { arc4random_uniform(NaN); }).to.throwError();
-		expect(function () { arc4random_uniform(new Date()); }).to.throwError();
-		expect(function () { arc4random_uniform(new RegExp('/foobar/')); }).to.throwError();
-		expect(function () { arc4random_uniform({ foo: 'bar' }); }).to.throwError();
-		expect(function () { arc4random_uniform([]); }).to.throwError();
-		expect(function () { arc4random_uniform(function sum(a, b) { return a + b; }); }).to.throwError();
+		expect(function () { rng.arc4random_uniform(null); }).to.throwError();
+		expect(function () { rng.arc4random_uniform(undefined); }).to.throwError();
+		expect(function () { rng.arc4random_uniform(''); }).to.throwError();
+		expect(function () { rng.arc4random_uniform(NaN); }).to.throwError();
+		expect(function () { rng.arc4random_uniform(new Date()); }).to.throwError();
+		expect(function () { rng.arc4random_uniform(new RegExp('/foobar/')); }).to.throwError();
+		expect(function () { rng.arc4random_uniform({ foo: 'bar' }); }).to.throwError();
+		expect(function () { rng.arc4random_uniform([]); }).to.throwError();
+		expect(function () { rng.arc4random_uniform(function sum(a, b) { return a + b; }); }).to.throwError();
 
-		expect(function () { arc4random_uniform(-1); }).to.throwError();
-		expect(function () { arc4random_uniform(-1.0); }).to.throwError();
-		expect(function () { arc4random_uniform(4294967296); }).to.throwError();
+		expect(function () { rng.arc4random_uniform(-1); }).to.throwError();
+		expect(function () { rng.arc4random_uniform(-1.0); }).to.throwError();
+		expect(function () { rng.arc4random_uniform(4294967296); }).to.throwError();
 
-		expect(function () { arc4random_uniform(1,2); }).to.throwError();
-		expect(function () { arc4random_uniform(1,2,3); }).to.throwError();
-		expect(function () { arc4random_uniform(1,2,3,4); }).to.throwError();
-		expect(function () { arc4random_uniform(1,2,3,4,5); }).to.throwError();
+		expect(function () { rng.arc4random_uniform(1,2); }).to.throwError();
+		expect(function () { rng.arc4random_uniform(1,2,3); }).to.throwError();
+		expect(function () { rng.arc4random_uniform(1,2,3,4); }).to.throwError();
+		expect(function () { rng.arc4random_uniform(1,2,3,4,5); }).to.throwError();
 	});
 	it('should be uniform', function () {
 		var counts = [ 0, 0, 0, 0, 0, 0, 0, 0 ];
 
 		for (var ii = 0; ii < n; ii++) {
-			counts[arc4random_uniform(counts.length)]++;
+			counts[rng.arc4random_uniform(counts.length)]++;
 		}
 
 		// stddev

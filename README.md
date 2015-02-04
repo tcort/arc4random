@@ -33,27 +33,7 @@ The latest and greatest version of this software is available through [npm](http
 Usage
 -----
 
-The global way -- defines `arc4random()` `arc4random_buf(buf, nbytes)`, and
-`arc4random_uniform(upper_bound)` globally:
-
-    require('arc4random');
-
-    // returns an integer in the range [0, 2^32)
-    var randomNumber = arc4random();
-
-    // stores nbytes integers in the given buffer.
-    // each byte is an integer in the range [0, 256)
-    var nbytes = 255;
-    var buf = new Buffer(nbytes);
-    arc4random_buf(buf, nbytes);
-
-    // returns an integer in the range [0, upper_bound)
-    var anotherRandomNumber = arc4random_uniform(16);
-
-The local way -- simply exports the functions like a normal node module, doesn't touch
-the `global` object:
-
-    var rng = require('arc4random/safe');
+    var rng = require('arc4random');
 
     // returns an integer in the range [0, 2^32)
     var randomNumber = rng.arc4random();
@@ -66,9 +46,6 @@ the `global` object:
 
     // returns an integer in the range [0, upper_bound)
     var anotherRandomNumber = rng.arc4random_uniform(16);
-
-I prefer the first way, but some people seem to be afraid of polluting the global
-namespace and prefer the second way.
 
 License
 -------
