@@ -22,7 +22,7 @@ var expect = require('expect.js');
 var n = 4096;
 
 describe('arc4random()', function () {
-	this.timeout(10000);
+	this.timeout(30000);
 	it('should return numbers within the range 0 to (2**32)-1', function () {
 		for (var ii = 0; ii < n; ii++) {
 			expect(rng.arc4random()).to.be.within(0, 4294967295);
@@ -48,7 +48,7 @@ describe('arc4random()', function () {
 });
 
 describe('arc4random_buf()', function () {
-	this.timeout(10000);
+	this.timeout(30000);
 	it('should fill a buffer with random bytes', function () {
 		var ii;
 		var result = 0;
@@ -100,7 +100,7 @@ describe('arc4random_buf()', function () {
 });
 
 describe('arc4random_uniform()', function () {
-	this.timeout(10000);
+	this.timeout(30000);
 	it('should return numbers within the range 0 to n', function () {
 		for (var ii = 0; ii < n; ii++) {
 			expect(rng.arc4random_uniform(n)).to.be.within(0, n);

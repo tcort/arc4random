@@ -12,10 +12,12 @@ Requirements
 
 * Any of these JavaScript engine versions:
   * [iojs](https://iojs.org/) v1.0.1 or later
+  * [iojs](https://iojs.org/) v1.1.0 or later
   * [nodejs](http://nodejs.org/) v0.8.6 or later (except v0.8.13)
-  * [nodejs](http://nodejs.org/) v0.9.1 or later
+  * [nodejs](http://nodejs.org/) v0.9.1 or later (except v0.9.3)
   * [nodejs](http://nodejs.org/) v0.10.0 or later
   * [nodejs](http://nodejs.org/) v0.11.13 or later
+  * [nodejs](http://nodejs.org/) v0.12.0 or later
 * Operating system with a native `arc4random()` function or [libbsd](http://libbsd.freedesktop.org/):
   * [Mac OS X (darwin)](https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man3/arc4random.3.html)
   * [FreeBSD](https://www.freebsd.org/cgi/man.cgi?query=arc4random&sektion=3)

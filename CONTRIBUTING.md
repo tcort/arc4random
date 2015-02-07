@@ -33,10 +33,12 @@ should work.
 | Engine | Series  | Minimum Version | Maximum Version |
 |--------| ------- | --------------- | --------------- |
 | iojs   |  v1.0.x |          v1.0.1 |    latest  v1.0 |
+| iojs   |  v1.1.x |          v1.1.0 |    latest  v1.1 |
 | nodejs |  v0.8.x |          v0.8.6 |    latest  v0.8 |
 | nodejs |  v0.9.x |          v0.9.1 |    latest  v0.9 |
 | nodejs | v0.10.x |         v0.10.0 |    latest v0.10 |
 | nodejs | v0.11.x |        v0.11.13 |    latest v0.11 |
+| nodejs | v0.12.x |         v0.12.0 |    latest v0.12 |
 
 These versions are also listed in `README.md`, `package.json`,
 and `test/nvm-test.bash`. If they change, update them there too.
