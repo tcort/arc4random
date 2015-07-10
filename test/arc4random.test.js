@@ -73,7 +73,7 @@ describe('arc4random_buf()', function () {
 		}
 		expect(result).not.to.be(0);
 	});
-	it('should now allow itself to be called incorrectly', function () {
+	it('should not allow itself to be called incorrectly', function () {
 
 		var values = [ null, undefined, NaN, '', new Date(), new RegExp('/foobar/'), [], function sum(a, b) { return a + b; } ];
 
@@ -106,7 +106,7 @@ describe('arc4random_uniform()', function () {
 			expect(rng.arc4random_uniform(n)).to.be.within(0, n);
 		}
 	});
-	it('should now allow itself to be called incorrectly', function () {
+	it('should not allow itself to be called incorrectly', function () {
 		expect(function () { rng.arc4random_uniform(null); }).to.throwError();
 		expect(function () { rng.arc4random_uniform(undefined); }).to.throwError();
 		expect(function () { rng.arc4random_uniform(''); }).to.throwError();
