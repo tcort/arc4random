@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/tcort/node-arc4random"
+    "url": "git://github.com/tcort/arc4random"
   },
   "keywords": [
     "arc4random",
@@ -20,9 +20,9 @@
   "author": "Thomas Cort <linuxgeek@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tcort/node-arc4random/issues"
+    "url": "https://github.com/tcort/arc4random/issues"
   },
-  "homepage": "https://github.com/tcort/node-arc4random",
+  "homepage": "https://github.com/tcort/arc4random",
   "os": [
     "darwin",
     "freebsd",
