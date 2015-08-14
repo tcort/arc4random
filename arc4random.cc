@@ -31,63 +31,63 @@ using namespace v8;
 using namespace node;
 
 NAN_METHOD(node_arc4random) {
-	NanScope();
+    Nan::HandleScope scope;
 
-        if (args.Length() != 0) {
-		NanThrowTypeError("Wrong number of arguments");
-		NanReturnUndefined();
-        }
+    if (info.Length() != 0) {
+        Nan::ThrowTypeError("Wrong number of arguments");
+        return;
+    }
 
-	NanReturnValue(NanNew<Number>(arc4random()));
+    info.GetReturnValue().Set(Nan::New<Number>(arc4random()));
 }
 
 NAN_METHOD(node_arc4random_buf) {
-	NanScope();
+    Nan::HandleScope scope;
 
-	if (args.Length() != 2) {
-		NanThrowTypeError("Wrong number of arguments");
-		NanReturnUndefined();
-	}
+    if (info.Length() != 2) {
+        Nan::ThrowTypeError("Wrong number of arguments");
+        return;
+    }
 
-	if (!Buffer::HasInstance(args[0]) || !args[1]->IsNumber() || isnan(args[1]->NumberValue()) || args[1]->IntegerValue() < 0 || args[1]->IntegerValue() > UINT32_MAX) {
-		NanThrowTypeError("Wrong arguments");
-		NanReturnUndefined();
-	}
+    if (!Buffer::HasInstance(info[0]) || !info[1]->IsNumber() || isnan(info[1]->NumberValue()) || info[1]->IntegerValue() < 0 || info[1]->IntegerValue() > UINT32_MAX) {
+        Nan::ThrowTypeError("Wrong arguments");
+        return;
+    }
 
-	Local<Object> bufferObj = args[0]->ToObject();
-	char*  bufferData = Buffer::Data(bufferObj);
-	size_t bufferLength = Buffer::Length(bufferObj);
-	size_t nbytes = args[1]->IntegerValue();
+    Local<Object> bufferObj = info[0]->ToObject();
+    char*  bufferData = Buffer::Data(bufferObj);
+    size_t bufferLength = Buffer::Length(bufferObj);
+    size_t nbytes = info[1]->IntegerValue();
 
-        if (bufferLength < nbytes) {
-		NanThrowRangeError("Trying to write outside buffer length");
-		NanReturnUndefined();
-        }
+    if (bufferLength < nbytes) {
+        Nan::ThrowRangeError("Trying to write outside buffer length");
+        return;
+    }
 
-        arc4random_buf(bufferData, nbytes);
-	NanReturnUndefined();
+    arc4random_buf(bufferData, nbytes);
+    return;
 }
 
 NAN_METHOD(node_arc4random_uniform) {
-	NanScope();
+    Nan::HandleScope scope;
 
-        if (args.Length() != 1) {
-		NanThrowTypeError("Wrong number of arguments");
-		NanReturnUndefined();
-        }
+    if (info.Length() != 1) {
+        Nan::ThrowTypeError("Wrong number of arguments");
+        return;
+    }
 
-        if (!args[0]->IsNumber() || isnan(args[0]->NumberValue()) || args[0]->IntegerValue() < 0 || args[0]->IntegerValue() > UINT32_MAX) {
-		NanThrowTypeError("Wrong arguments");
-		NanReturnUndefined();
-        }
+    if (!info[0]->IsNumber() || isnan(info[0]->NumberValue()) || info[0]->IntegerValue() < 0 || info[0]->IntegerValue() > UINT32_MAX) {
+        Nan::ThrowTypeError("Wrong arguments");
+        return;
+    }
 
-	NanReturnValue(NanNew<Number>(arc4random_uniform(args[0]->Uint32Value())));
+    info.GetReturnValue().Set(Nan::New<Number>(arc4random_uniform(info[0]->Uint32Value())));
 }
 
 void init(Handle<Object> exports) {
-	exports->Set(NanNew("arc4random"),         NanNew<FunctionTemplate>(node_arc4random        )->GetFunction());
-	exports->Set(NanNew("arc4random_buf"),     NanNew<FunctionTemplate>(node_arc4random_buf    )->GetFunction());
-	exports->Set(NanNew("arc4random_uniform"), NanNew<FunctionTemplate>(node_arc4random_uniform)->GetFunction());
+    exports->Set(Nan::New("arc4random").ToLocalChecked(),     Nan::New<FunctionTemplate>(node_arc4random    )->GetFunction());
+    exports->Set(Nan::New("arc4random_buf").ToLocalChecked(),     Nan::New<FunctionTemplate>(node_arc4random_buf    )->GetFunction());
+    exports->Set(Nan::New("arc4random_uniform").ToLocalChecked(), Nan::New<FunctionTemplate>(node_arc4random_uniform)->GetFunction());
 }
 
 NODE_MODULE(arc4random, init)
