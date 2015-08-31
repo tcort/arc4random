@@ -27,9 +27,6 @@
 #include <bsd/stdlib.h>
 #endif
 
-using namespace v8;
-using namespace node;
-
 NAN_METHOD(node_arc4random) {
     Nan::HandleScope scope;
 
@@ -38,7 +35,7 @@ NAN_METHOD(node_arc4random) {
         return;
     }
 
-    info.GetReturnValue().Set(Nan::New<Number>(arc4random()));
+    info.GetReturnValue().Set(Nan::New<v8::Number>(arc4random()));
 }
 
 NAN_METHOD(node_arc4random_buf) {
@@ -49,14 +46,14 @@ NAN_METHOD(node_arc4random_buf) {
         return;
     }
 
-    if (!Buffer::HasInstance(info[0]) || !info[1]->IsNumber() || isnan(info[1]->NumberValue()) || info[1]->IntegerValue() < 0 || info[1]->IntegerValue() > UINT32_MAX) {
+    if (!node::Buffer::HasInstance(info[0]) || !info[1]->IsNumber() || isnan(info[1]->NumberValue()) || info[1]->IntegerValue() < 0 || info[1]->IntegerValue() > UINT32_MAX) {
         Nan::ThrowTypeError("Wrong arguments");
         return;
     }
 
-    Local<Object> bufferObj = info[0]->ToObject();
-    char*  bufferData = Buffer::Data(bufferObj);
-    size_t bufferLength = Buffer::Length(bufferObj);
+    v8::Handle<v8::Value> bufferObj = info[0]->ToObject();
+    char*  bufferData = node::Buffer::Data(bufferObj);
+    size_t bufferLength = node::Buffer::Length(bufferObj);
     size_t nbytes = info[1]->IntegerValue();
 
     if (bufferLength < nbytes) {
@@ -81,13 +78,13 @@ NAN_METHOD(node_arc4random_uniform) {
         return;
     }
 
-    info.GetReturnValue().Set(Nan::New<Number>(arc4random_uniform(info[0]->Uint32Value())));
+    info.GetReturnValue().Set(Nan::New<v8::Number>(arc4random_uniform(info[0]->Uint32Value())));
 }
 
-void init(Handle<Object> exports) {
-    exports->Set(Nan::New("arc4random").ToLocalChecked(),     Nan::New<FunctionTemplate>(node_arc4random    )->GetFunction());
-    exports->Set(Nan::New("arc4random_buf").ToLocalChecked(),     Nan::New<FunctionTemplate>(node_arc4random_buf    )->GetFunction());
-    exports->Set(Nan::New("arc4random_uniform").ToLocalChecked(), Nan::New<FunctionTemplate>(node_arc4random_uniform)->GetFunction());
+NAN_MODULE_INIT(init) {
+    Nan::Export(target, "arc4random", node_arc4random);
+    Nan::Export(target, "arc4random_buf", node_arc4random_buf);
+    Nan::Export(target, "arc4random_uniform", node_arc4random_uniform);
 }
 
 NODE_MODULE(arc4random, init)
