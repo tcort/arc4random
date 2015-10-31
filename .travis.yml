@@ -11,5 +11,3 @@ addons:
     - gcc-4.8
     - g++-4.8
     - libbsd-dev
-script:
-  - $CXX --version
