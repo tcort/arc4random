@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, 2015 Thomas Cort <linuxgeek@gmail.com>
+ * Copyright (c) 2014, 2015, 2016 Thomas Cort <linuxgeek@gmail.com>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -19,7 +19,7 @@
 var rng = require('../index');
 var expect = require('expect.js');
 
-var n = 4096;
+var n = 8192;
 
 describe('arc4random()', function () {
 	this.timeout(30000);
