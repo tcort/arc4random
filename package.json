@@ -32,7 +32,7 @@
   ],
   "devDependencies": {
     "expect.js": "~0.3.1",
-    "mocha": "~2.3.3"
+    "mocha": "~2.3.4"
   },
   "dependencies": {
     "bindings": "~1.2.1",
