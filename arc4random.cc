@@ -30,7 +30,7 @@ NAN_METHOD(node_arc4random_buf) {
         return;
     }
 
-    if (!node::Buffer::HasInstance(info[0]) || !info[1]->IsNumber() || isnan(info[1]->NumberValue()) || info[1]->IntegerValue() < 0 || info[1]->IntegerValue() > UINT32_MAX) {
+    if (!node::Buffer::HasInstance(info[0]) || !info[1]->IsNumber() || std::isnan(info[1]->NumberValue()) || info[1]->IntegerValue() < 0 || info[1]->IntegerValue() > UINT32_MAX) {
         Nan::ThrowTypeError("Wrong arguments");
         return;
     }
@@ -57,7 +57,7 @@ NAN_METHOD(node_arc4random_uniform) {
         return;
     }
 
-    if (!info[0]->IsNumber() || isnan(info[0]->NumberValue()) || info[0]->IntegerValue() < 0 || info[0]->IntegerValue() > UINT32_MAX) {
+    if (!info[0]->IsNumber() || std::isnan(info[0]->NumberValue()) || info[0]->IntegerValue() < 0 || info[0]->IntegerValue() > UINT32_MAX) {
         Nan::ThrowTypeError("Wrong arguments");
         return;
     }
