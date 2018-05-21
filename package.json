@@ -1,6 +1,6 @@
 {
   "name": "arc4random",
-  "version": "2.1.9",
+  "version": "2.1.10",
   "description": "Native bindings for the arc4random() family of funcitons.",
   "main": "index.js",
   "scripts": {
