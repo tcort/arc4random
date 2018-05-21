@@ -28,19 +28,19 @@ The latest and greatest version of this software is available through [npm](http
 Usage
 -----
 
-    var rng = require('arc4random');
+    const rng = require('arc4random');
 
     // returns an integer in the range [0, 2^32)
-    var randomNumber = rng.arc4random();
+    const randomNumber = rng.arc4random();
 
     // stores nbytes integers in the given buffer.
     // each byte is an integer in the range [0, 256)
-    var nbytes = 255;
-    var buf = new Buffer(nbytes);
+    const nbytes = 255;
+    const buf = Buffer.alloc(nbytes);
     rng.arc4random_buf(buf, nbytes);
 
     // returns an integer in the range [0, upper_bound)
-    var anotherRandomNumber = rng.arc4random_uniform(16);
+    const anotherRandomNumber = rng.arc4random_uniform(16);
 
 License
 -------

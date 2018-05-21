@@ -1,14 +1,14 @@
 "use strict";
 
-var rng = require('../index');
-var expect = require('expect.js');
+const rng = require('../index');
+const expect = require('expect.js');
 
-var n = 8192;
+const n = 8192;
 
 describe('arc4random()', function () {
 	this.timeout(30000);
 	it('should return numbers within the range 0 to (2**32)-1', function () {
-		for (var ii = 0; ii < n; ii++) {
+		for (let ii = 0; ii < n; ii++) {
 			expect(rng.arc4random()).to.be.within(0, 4294967295);
 		}
 	});
@@ -34,16 +34,15 @@ describe('arc4random()', function () {
 describe('arc4random_buf()', function () {
 	this.timeout(30000);
 	it('should fill a buffer with random bytes', function () {
-		var ii;
-		var result = 0;
-		var nbytes = 16;
-		var buf = new Buffer(nbytes);
+		let ii;
+		const nbytes = 16;
+		const buf = Buffer.alloc(nbytes);
 
 		for (ii = 0; ii < nbytes; ii++) {
 			buf[ii] = 0;
 		}
 
-		result = 0;
+		let result = 0;
 		for (ii = 0; ii < nbytes; ii++) {
 			result |= buf[ii];
 		}
@@ -59,34 +58,34 @@ describe('arc4random_buf()', function () {
 	});
 	it('should not allow itself to be called incorrectly', function () {
 
-		var values = [ null, undefined, NaN, '', new Date(), new RegExp('/foobar/'), [], function sum(a, b) { return a + b; } ];
+		const values = [ null, undefined, NaN, '', new Date(), new RegExp('/foobar/'), [], function sum(a, b) { return a + b; } ];
 
-		for (var ii = 0; ii < values.length; ii++) {
-			for (var jj = 0; jj < values.length; jj++) {
+		for (let ii = 0; ii < values.length; ii++) {
+			for (let jj = 0; jj < values.length; jj++) {
 				expect(function () { rng.arc4random_buf(values[ii], values[jj]); }).to.throwError();
 			}
 		}
 
-		expect(function () { rng.arc4random_buf(4, new Buffer(4)); }).to.throwError();
-		expect(function () { rng.arc4random_buf(new Buffer(4)); }).to.throwError();
-		expect(function () { rng.arc4random_buf(new Buffer(4), 4, 4); }).to.throwError();
+		expect(function () { rng.arc4random_buf(4, Buffer.alloc(4)); }).to.throwError();
+		expect(function () { rng.arc4random_buf(Buffer.alloc(4)); }).to.throwError();
+		expect(function () { rng.arc4random_buf(Buffer(4).alloc, 4, 4); }).to.throwError();
 	});
 	it('should not write past the buffer', function () {
-		expect(function () { rng.arc4random_buf(new Buffer(1), 987654321); }).to.throwError();
+		expect(function () { rng.arc4random_buf(Buffe.alloc(1), 987654321); }).to.throwError();
 	});
 	it('should not crash with a 0 length buffer', function () {
-		rng.arc4random_buf(new Buffer(0), 0);
-		expect(function () { rng.arc4random_buf(new Buffer(0), 16); }).to.throwError();
+		rng.arc4random_buf(Buffer.alloc(0), 0);
+		expect(function () { rng.arc4random_buf(Buffer.alloc(0), 16); }).to.throwError();
 	});
 	it('should not crash with a 0 length request', function () {
-		rng.arc4random_buf(new Buffer(16), 0);
+		rng.arc4random_buf(Buffer.alloc(16), 0);
 	});
 });
 
 describe('arc4random_uniform()', function () {
 	this.timeout(30000);
 	it('should return numbers within the range 0 to n', function () {
-		for (var ii = 0; ii < n; ii++) {
+		for (let ii = 0; ii < n; ii++) {
 			expect(rng.arc4random_uniform(n)).to.be.within(0, n);
 		}
 	});
@@ -111,32 +110,31 @@ describe('arc4random_uniform()', function () {
 		expect(function () { rng.arc4random_uniform(1,2,3,4,5); }).to.throwError();
 	});
 	it('should be uniform', function () {
-		var counts = [ 0, 0, 0, 0, 0, 0, 0, 0 ];
+		const counts = [ 0, 0, 0, 0, 0, 0, 0, 0 ];
 
-		for (var ii = 0; ii < n; ii++) {
+		for (let ii = 0; ii < n; ii++) {
 			counts[rng.arc4random_uniform(counts.length)]++;
 		}
 
 		// stddev
-		var avg = 0;
-		for (var jj = 0; jj < counts.length; jj++) {
+		let avg = 0;
+		for (let jj = 0; jj < counts.length; jj++) {
 			avg += counts[jj];
 		}
 		avg /= counts.length;
 
-		var sqrdiff = [];
+		const sqrdiff = [];
 		for (var kk = 0; kk < counts.length; kk++) {
 			sqrdiff.push((counts[kk] - avg) * (counts[kk] - avg));
 		}
 
-		var variance = 0;
+		let variance = 0;
 		for (var ll = 0; ll < sqrdiff.length; ll++) {
 			variance += sqrdiff[ll];
 		}
 		variance /= sqrdiff.length;
 
-		var stddev = Math.sqrt(variance);
-
+		const stddev = Math.sqrt(variance);
 		for (var mm = 0; mm < counts.length; mm++) {
 			expect(Math.abs(counts[mm] - avg)).to.be.lessThan(4*stddev);
 		}
